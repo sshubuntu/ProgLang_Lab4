@@ -1,0 +1,23 @@
+﻿services:
+  postgres:
+    image: postgres:16
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_USER: ${DB_USER}
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./sql_scripts:/docker-entrypoint-initdb.d
+    networks:
+      progLang4:
+  
+networks:
+  progLang4:
+    
+volumes:
+  db_data:
